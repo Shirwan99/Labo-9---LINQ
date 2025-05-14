@@ -29,5 +29,11 @@ namespace StudentScores
         {
             resultListBox.ItemsSource= studentStore.GetStudentsSortedByFirstName();
         }
+
+        private void StudentsGroupedByDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            resultListBox.ItemsSource= studentStore.GetStudentsGroupedByDepartment();
+
+        }
     }
 }

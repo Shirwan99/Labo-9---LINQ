@@ -4,23 +4,6 @@ namespace StudentScores.Data
 {
     public class StudentStore
     {
-        public Student[] AllStudents => _students.ToArray();
-        private List<Student> _students;
-
-        private Lazy<List<Student>> _passedStudents;
-        public List<Student> PassedStudents
-        {
-            get
-            {
-                if (_passedStudents == null)
-                {
-                    _passedStudents = new Lazy<List<Student>>(() => _students.Where(s => s.Grade >= 10).ToList());
-                }
-                return _passedStudents.Value;
-            }
-        }
-
-
         public StudentStore()
         {
             _students = new List<Student>
@@ -77,12 +60,52 @@ namespace StudentScores.Data
                 new Student { FirstName = "Jules", LastName = "Dumoulin", Grade = 15, Department = "Marketing" },
             };
         }
+        public Student[] AllStudents => _students.ToArray();
+        private List<Student> _students;
+
+        private Lazy<List<Student>> _passedStudents;
+        public List<Student> PassedStudents
+        {
+            get
+            {
+                if (_passedStudents == null)
+                {
+                    _passedStudents = new Lazy<List<Student>>(() => _students.Where(s => s.Grade >= 10).ToList());
+                }
+                return _passedStudents.Value;
+            }
+        }
+
         public List<Student> GetStudentsSortedByFirstName()
         {
             var query = from student in _students
                         orderby student.FirstName, student.LastName
                         select student;
             return query.ToList();
+        }
+
+        //Uitleg vragen!
+        public List<string> GetStudentsGroupedByDepartment()
+        {
+            var query =
+                from student in _students
+                group student by student.Department into departmentGroup
+                select new
+                {
+                    Department = departmentGroup.Key,
+                    Count = departmentGroup.Count(),
+                    MaxScore = departmentGroup.Max(s => s.Grade),
+                    Students = departmentGroup.Select(s => $"{s.FirstName} {s.LastName} (Score: {s.Grade})")
+                };
+
+            var result = new List<string>();
+
+            foreach (var group in query)
+            {
+                result.Add($"Department: {group.Department} ({group.Count} students, Max Score: {group.MaxScore})");
+                result.AddRange(group.Students.Select(student => $"  - {student}"));
+            }
+            return result;
         }
     }
 }
