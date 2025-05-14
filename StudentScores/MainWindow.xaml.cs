@@ -50,5 +50,15 @@ namespace StudentScores
                 MessageBoxImage.Information
             );
         }
+
+        private void CountDepartements_Click(object sender, RoutedEventArgs e)
+        {
+            int count = studentStore.GetDepartmentCount();
+            MessageBox.Show(
+                $"Total Departments: {count}",
+                "Department Count",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+        }
     }
 }

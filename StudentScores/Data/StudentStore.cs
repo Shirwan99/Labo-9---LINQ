@@ -109,7 +109,6 @@ namespace StudentScores.Data
         }
 
         //Uitleg vragen!
-
         public (int TotalStudents, int MinScore, int MaxScore, double AverageScore) GetStatistics()
         {
             int totalStudents = _students.Count;
@@ -118,6 +117,18 @@ namespace StudentScores.Data
             double averageScore = _students.Average(s => s.Grade);
 
             return (totalStudents, minScore, maxScore, averageScore);
+        }
+        public int GetDepartmentCount()
+        {
+            var query =
+                from student in _students
+                group student by student.Department into departmentGroup
+                select new
+                {
+                    Department = departmentGroup.Key,
+                    Count = departmentGroup
+                };
+            return query.Count();
         }
     }
 }
