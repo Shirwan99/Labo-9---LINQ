@@ -8,7 +8,7 @@
             <Button Content="Studenten geslaagd (>12)" Margin="5" Click="GeslaagdeStudenten_Click"/>
             <Button Content="Gesorteerd op voornaam" Margin="5" Click="SortedByFirstName_Click"/>
             <Button Content="Aantal per departement" Margin="5" Click="StudentsGroupedByDepartment_Click"/>
-            <Button Content="Samenvatting" Margin="5"/>
+            <Button Content="Samenvatting" Margin="5" Click="Button_Click"/>
             <Button Content="Aantal departementen" Margin="5"/>
         </WrapPanel>
         <ListBox Name="resultListBox" Height="250" Margin="5"/>

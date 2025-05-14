@@ -107,5 +107,17 @@ namespace StudentScores.Data
             }
             return result;
         }
+
+        //Uitleg vragen!
+
+        public (int TotalStudents, int MinScore, int MaxScore, double AverageScore) GetStatistics()
+        {
+            int totalStudents = _students.Count;
+            int minScore = _students.Min(s => s.Grade);
+            int maxScore = _students.Max(s => s.Grade);
+            double averageScore = _students.Average(s => s.Grade);
+
+            return (totalStudents, minScore, maxScore, averageScore);
+        }
     }
 }

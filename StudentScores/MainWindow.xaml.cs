@@ -35,5 +35,20 @@ namespace StudentScores
             resultListBox.ItemsSource= studentStore.GetStudentsGroupedByDepartment();
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var stats = studentStore.GetStatistics();
+
+            MessageBox.Show(
+                $"Total Students: {stats.TotalStudents}\n" +
+                $"Minimum Score: {stats.MinScore}\n" +
+                $"Maximum Score: {stats.MaxScore}\n" +
+                $"Average Score: {stats.AverageScore:F2}",
+                "Student Statistics",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+            );
+        }
     }
 }
