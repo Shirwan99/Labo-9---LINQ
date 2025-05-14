@@ -4,9 +4,9 @@
         Title="Student Grades" Height="400" Width="600">
     <StackPanel Margin="10">
         <WrapPanel>
-            <Button Content="Toon alle studenten" Margin="5"/>
-            <Button Content="Studenten geslaagd (>12)" Margin="5"/>
-            <Button Content="Gesorteerd op voornaam" Margin="5"/>
+            <Button Content="Toon alle studenten" Margin="5" Click="ShowStudents_Click"/>
+            <Button Content="Studenten geslaagd (>12)" Margin="5" Click="GeslaagdeStudenten_Click"/>
+            <Button Content="Gesorteerd op voornaam" Margin="5" Click="SortedByFirstName_Click"/>
             <Button Content="Aantal per departement" Margin="5"/>
             <Button Content="Samenvatting" Margin="5"/>
             <Button Content="Aantal departementen" Margin="5"/>

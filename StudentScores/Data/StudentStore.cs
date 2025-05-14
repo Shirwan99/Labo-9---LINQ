@@ -4,12 +4,27 @@ namespace StudentScores.Data
 {
     public class StudentStore
     {
+        public Student[] AllStudents => _students.ToArray();
         private List<Student> _students;
+
+        private Lazy<List<Student>> _passedStudents;
+        public List<Student> PassedStudents
+        {
+            get
+            {
+                if (_passedStudents == null)
+                {
+                    _passedStudents = new Lazy<List<Student>>(() => _students.Where(s => s.Grade >= 10).ToList());
+                }
+                return _passedStudents.Value;
+            }
+        }
+
 
         public StudentStore()
         {
             _students = new List<Student>
-                {
+            {
                 new Student { FirstName = "Lotte", LastName = "Vermeulen", Grade = 6, Department = "Business" },
                 new Student { FirstName = "Fien", LastName = "Wouters", Grade = 17, Department = "Design" },
                 new Student { FirstName = "Robbe", LastName = "Verbeeck", Grade = 19, Department = "IT" },
@@ -60,8 +75,14 @@ namespace StudentScores.Data
                 new Student { FirstName = "Jules", LastName = "Buyens", Grade = 11, Department = "Marketing" },
                 new Student { FirstName = "Mats", LastName = "Jacobs", Grade = 13, Department = "Design" },
                 new Student { FirstName = "Jules", LastName = "Dumoulin", Grade = 15, Department = "Marketing" },
-                };
+            };
         }
-
+        public List<Student> GetStudentsSortedByFirstName()
+        {
+            var query = from student in _students
+                        orderby student.FirstName, student.LastName
+                        select student;
+            return query.ToList();
+        }
     }
 }
